@@ -53,25 +53,22 @@ const MenuPositions = {
 
 class ProductCategoryFilters extends React.Component {
     state = {
-        term: [],
         active: 'DaniaWege'
     }
 
     handleClick = (e) => {
+        this.props.onClick(MenuPositions[e]);
         this.setState({
-            term: MenuPositions[e.target.getAttribute('accessKey')],
-            active: e.target.getAttribute('accessKey')
-        }, () => {
-            this.props.onClick(this.state.term);
-        });
+            active: e
+        })
     }
 
     render () {
         return (
             <div className="nav" >
-                <a className={this.state.active === 'DaniaWege' ? 'active' : ''} accessKey={"DaniaWege"} onClick={this.handleClick} >Dania Wege</a>
-                <a className={this.state.active === 'DaniaMiesne' ? 'active' : ''} accessKey={"DaniaMiesne"} onClick={this.handleClick} >Dania mięsne</a>
-                <a className={this.state.active === 'Dodatki' ? 'active' : ''} accessKey={"Dodatki"} onClick={this.handleClick} >Dodatki</a>
+                <a className={this.state.active === 'DaniaWege' ? 'active' : ''} onClick={() => this.handleClick( 'DaniaWege')} >Dania Wege</a>
+                <a className={this.state.active === 'DaniaMiesne' ? 'active' : ''} onClick={() => this.handleClick( 'DaniaMiesne')} >Dania mięsne</a>
+                <a className={this.state.active === 'Dodatki' ? 'active' : ''} onClick={() => this.handleClick( 'Dodatki')} >Dodatki</a>
             </div>
         );
     }
