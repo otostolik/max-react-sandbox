@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router';
 
 import { Table, Button } from 'reactstrap';
 
@@ -41,4 +40,4 @@ class StudentsList extends React.Component {
     }
 }
 
-export default withRouter(StudentsList);
+export default StudentsList;
