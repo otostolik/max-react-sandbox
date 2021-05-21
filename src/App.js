@@ -1,44 +1,59 @@
 import React from 'react';
+import axios from 'axios';
+  
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+  } from "react-router-dom";
 
-import ProductCategoryFilters from './components/ProductCategoryFilters';
-import ProductComponent from './components/ProductComponent';
+import { Nav, NavItem, NavLink, Container } from 'reactstrap';
 
-import './css/index.css';
-
+import StudentsList from './components/StudentsList';
+import PageAddStudents from './components/PageAddStudents';
+  
 class App extends React.Component {
-
-    state = { filtres: [{
-        picture: "https://www.zatar.pl/storage-zatar//img/dania/falafel.jpg" ,
-        name: "FALAFEL & OLIWKI",
-        id: 1
-    },
-    {
-        picture: "https://www.zatar.pl/storage-zatar//img/dania/Gyros_pita_wege.jpg",
-        name: "GYROS PITA WEGE",
-        id: 2
-    },
-    {
-        picture: "https://www.zatar.pl/storage-zatar//img/dania/talerz-mix-wege-crop.jpeg",
-        name: "TALERZ MIX WEGE",
-        id: 3
-    }] }
-
-    selectedChoice = (category) => {
-        this.setState({filtres: category});
+    state = {
+        students: null
     }
 
-    render () {
+    async componentDidMount () {
+        const response = await axios.get('https://my-json-server.typicode.com/Max-jun-source/students-list/Students');
+
+        this.setState({ students: response.data });
+    }
+
+    addNewStudent = (student) => {
+        this.setState({ students: [...this.state.students, student ]});
+        
+    }
+
+    deleteStudent = (id) => {
+        this.state.students.splice(id, 1);
+    }
+
+    render() {
         return (
-            <div className="justify-content-center">
-                <div className="two fields">
-                    <div className="field">
-                        <ProductCategoryFilters onClick={this.selectedChoice} />
-                    </div>
-                    <div className="field">
-                        <ProductComponent products={this.state.filtres} />
-                    </div>
-                </div>
-            </div>
+            <Router>
+                <Container>
+                    <Nav>
+                        <NavItem>
+                            <NavLink className="link" href="/">Students List</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink className="link" href="/add-student">Add Student</NavLink>
+                        </NavItem>
+                    </Nav>
+                    <Switch>
+                        <Route path="/add-student">
+                            <PageAddStudents onClick={this.addNewStudent} />
+                        </Route>
+                        <Route path="/">
+                            <StudentsList student={this.state.students} onClick={this.deleteStudent} />
+                        </Route>
+                    </Switch>
+                </Container>
+            </Router>
         );
     }
 }
