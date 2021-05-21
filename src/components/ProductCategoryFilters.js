@@ -53,16 +53,13 @@ const MenuPositions = {
 
 class ProductCategoryFilters extends React.Component {
     state = {
-        term: [],
         active: 'DaniaWege'
     }
 
     handleClick = (e) => {
+        this.props.onClick(MenuPositions[e.target.getAttribute('accessKey')])
         this.setState({
-            term: MenuPositions[e.target.getAttribute('accessKey')],
             active: e.target.getAttribute('accessKey')
-        }, () => {
-            this.props.onClick(this.state.term);
         });
     }
 

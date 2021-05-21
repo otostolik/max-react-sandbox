@@ -1,31 +1,32 @@
 import React from 'react';
 import axios from 'axios';
-  
+
 import {
     BrowserRouter as Router,
     Switch,
-    Route
-  } from "react-router-dom";
+    Route,
+    Link
+} from "react-router-dom";
 
 import { Nav, NavItem, NavLink, Container } from 'reactstrap';
 
 import StudentsList from './components/StudentsList';
 import PageAddStudents from './components/PageAddStudents';
-  
+
 class App extends React.Component {
     state = {
         students: null
     }
 
-    async componentDidMount () {
+    async componentDidMount() {
         const response = await axios.get('https://my-json-server.typicode.com/Max-jun-source/students-list/Students');
 
         this.setState({ students: response.data });
     }
 
     addNewStudent = (student) => {
-        this.setState({ students: [...this.state.students, student ]});
-        
+        this.setState({ students: [...this.state.students, student] });
+
     }
 
     deleteStudent = (id) => {
@@ -38,10 +39,10 @@ class App extends React.Component {
                 <Container>
                     <Nav>
                         <NavItem>
-                            <NavLink className="link" href="/">Students List</NavLink>
+                            <Link to="/">Students List</Link>
                         </NavItem>
                         <NavItem>
-                            <NavLink className="link" href="/add-student">Add Student</NavLink>
+                            <Link to="/add-student">Add Student</Link>
                         </NavItem>
                     </Nav>
                     <Switch>

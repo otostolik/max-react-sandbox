@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
@@ -21,6 +22,7 @@ class PageAddStudents extends React.Component {
         };
 
         this.props.onClick(newStudent);
+        this.props.history.push('/');
     }
 
     render() {
@@ -62,10 +64,10 @@ class PageAddStudents extends React.Component {
                         }
                     />
                 </FormGroup>
-                <Button href="/" color="success" style={{ marginTop: "10px" }} onClick={this.addNewStudent}>Add</Button>
+                <Button color="success" style={{ marginTop: "10px" }} onClick={this.addNewStudent}>Add</Button>
             </Form>
         );
     }
 }
 
-export default PageAddStudents;
+export default withRouter(PageAddStudents);
