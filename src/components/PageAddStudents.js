@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
@@ -20,7 +21,8 @@ class PageAddStudents extends React.Component {
             university: this.state.newStudentUniversity,
         };
 
-        this.props.onClick(newStudent);
+        this.props.addNewStudentHandler(newStudent);
+        this.props.history.push('/');
     }
 
     render() {
@@ -28,44 +30,44 @@ class PageAddStudents extends React.Component {
             <Form onSubmit={this.onFormSubmit}>
                 <FormGroup>
                     <Label for="name">Name</Label>
-                    <Input 
-                        type="text" 
-                        id="name" 
+                    <Input
+                        type="text"
+                        id="name"
                         placeholder="Name"
                         value={this.state.newStudentName}
-                        onChange={e => 
+                        onChange={e =>
                             this.setState({ newStudentName: e.target.value })
-                        } 
+                        }
                     />
                 </FormGroup>
                 <FormGroup>
                     <Label for="surname">Surname</Label>
-                    <Input 
-                        type="text" 
-                        id="surname" 
+                    <Input
+                        type="text"
+                        id="surname"
                         placeholder="Surname"
                         value={this.state.newStudentSurname}
-                        onChange={e => 
+                        onChange={e =>
                             this.setState({ newStudentSurname: e.target.value })
-                        } 
+                        }
                     />
                 </FormGroup>
                 <FormGroup>
                     <Label for="university">University</Label>
-                    <Input 
-                        type="text" 
-                        id="university" 
-                        placeholder="University" 
+                    <Input
+                        type="text"
+                        id="university"
+                        placeholder="University"
                         value={this.state.newStudentUniversity}
-                        onChange={e => 
+                        onChange={e =>
                             this.setState({ newStudentUniversity: e.target.value })
                         }
                     />
                 </FormGroup>
-                <Button href="/" color="success" style={{ marginTop: "10px" }} onClick={this.addNewStudent}>Add</Button>
+                <Button color="success" style={{ marginTop: "10px" }} onClick={this.addNewStudent}>Add</Button>
             </Form>
         );
     }
 }
 
-export default PageAddStudents;
+export default withRouter(PageAddStudents);

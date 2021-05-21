@@ -4,7 +4,8 @@ import axios from 'axios';
 import {
     BrowserRouter as Router,
     Switch,
-    Route
+    Route,
+    Link
   } from "react-router-dom";
 
 import { Nav, NavItem, NavLink, Container } from 'reactstrap';
@@ -24,6 +25,7 @@ class App extends React.Component {
     }
 
     addNewStudent = (student) => {
+        console.log('addNewStudent', student)
         this.setState({ students: [...this.state.students, student ]});
         
     }
@@ -38,15 +40,15 @@ class App extends React.Component {
                 <Container>
                     <Nav>
                         <NavItem>
-                            <NavLink className="link" href="/">Students List</NavLink>
+                            <Link to="/">Students List</Link>
                         </NavItem>
                         <NavItem>
-                            <NavLink className="link" href="/add-student">Add Student</NavLink>
+                            <Link to="/add-student">Add Student</Link>
                         </NavItem>
                     </Nav>
                     <Switch>
                         <Route path="/add-student">
-                            <PageAddStudents onClick={this.addNewStudent} />
+                            <PageAddStudents addNewStudentHandler={this.addNewStudent} />
                         </Route>
                         <Route path="/">
                             <StudentsList student={this.state.students} onClick={this.deleteStudent} />
