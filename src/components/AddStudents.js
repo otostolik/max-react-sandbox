@@ -21,7 +21,7 @@ class PageAddStudents extends React.Component {
             university: this.state.newStudentUniversity,
         };
 
-        this.props.onClick(newStudent);
+        this.props.handleAddStudent(newStudent);
         this.props.history.push('/');
     }
 

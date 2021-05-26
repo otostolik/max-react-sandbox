@@ -4,7 +4,7 @@ import { Table, Button } from 'reactstrap';
 
 class StudentsList extends React.Component {
     deleteStudent = (id) => {
-        this.props.onClick(id);
+        this.props.handleDeleteStudent(id);
     }
 
     render () {

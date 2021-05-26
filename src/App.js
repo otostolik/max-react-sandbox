@@ -5,13 +5,14 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    NavLink
 } from "react-router-dom";
 
-import { Nav, NavItem, NavLink, Container } from 'reactstrap';
+import { Nav, NavItem, Container } from 'reactstrap';
 
-import StudentsList from './components/StudentsList';
-import PageAddStudents from './components/PageAddStudents';
+import StudentListPage from './pages/StudentListPage';
+import AddStudentPage from './pages/AddStudentPage';
+import LiveLocationPage from './pages/LiveLocationPage';
 
 class App extends React.Component {
     state = {
@@ -31,6 +32,7 @@ class App extends React.Component {
 
     deleteStudent = (id) => {
         this.state.students.splice(id, 1);
+        this.setState({ students: this.state.students });
     }
 
     render() {
@@ -39,18 +41,24 @@ class App extends React.Component {
                 <Container>
                     <Nav>
                         <NavItem>
-                            <Link to="/">Students List</Link>
+                            <NavLink to="/">Students List</NavLink>
                         </NavItem>
                         <NavItem>
-                            <Link to="/add-student">Add Student</Link>
+                            <NavLink to="/add-student">Add Student</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink to="/current-position">Current Position</NavLink>
                         </NavItem>
                     </Nav>
                     <Switch>
+                        <Route path="/current-position">
+                            <LiveLocationPage />
+                        </Route>
                         <Route path="/add-student">
-                            <PageAddStudents onClick={this.addNewStudent} />
+                            <AddStudentPage handleAddStudent={this.addNewStudent} />
                         </Route>
                         <Route path="/">
-                            <StudentsList student={this.state.students} onClick={this.deleteStudent} />
+                            <StudentListPage student={this.state.students} handleDeleteStudent={this.deleteStudent} />
                         </Route>
                     </Switch>
                 </Container>
